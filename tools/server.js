@@ -25,6 +25,9 @@ const compiler = webpack(config);
 const io = socket(server)
 const staticPath = path.join(__dirname, '..', '/public')
 
+// const stitch = require("mongodb-stitch")
+// const client = new stitch.StitchClient('chat-react-mrnvc');
+// const db = client.service('mongodb', 'mongodb-atlas').db('chatdb');
 var room;
 
 app.use(require('webpack-dev-middleware')(compiler, {
@@ -42,7 +45,7 @@ app.get('/messages', (req, res) => {
   Message.find({room: room}, (err, docs) => {
     res.json(docs) 
   })
-
+  
 })  
 
 app.get('/rooms', (req, res) => {
@@ -136,7 +139,17 @@ io.on('connection', function(socket) {
   })
 });
 
-mongoose.connect('mongodb://admin:aech1234@ds163397.mlab.com:63397/react-chat')
+// client.login().then(() =>
+//   db.collection('react-chat').updateOne({owner_id: client.authedId()}, {$set:{number:42}}, {upsert:true})
+// ).then(() =>
+//   db.collection('react-chat').find({owner_id: client.authedId()})
+// ).then(docs => {
+//   console.log("Found docs", docs)
+//   console.log("[MongoDB Stitch] Connected to Stitch")
+// }).catch(err => {
+//   console.error(err)
+  // });
+mongoose.connect('mongodb://chatdbuser:123456@ds111103.mlab.com:11103/chat-server')
 const db = mongoose.connection;
 
 db.once('open', () => {
@@ -148,7 +161,7 @@ db.once('open', () => {
   }
 });
 
-
+})
 // app.post('/messages', (req, res) => {
 //   console.log(req.body)      
 //     let message = new Message({user: req.body.user, content: req.body.message, room: room})
@@ -158,5 +171,4 @@ db.once('open', () => {
 //       res.json(req.body) 
 //  })
 
-})
 
