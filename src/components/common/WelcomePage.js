@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import * as userActions from '../../actions/userActions'
 import { connect } from 'react-redux'
-import { InputGroup, Button, PageHeader, FormGroup, FormControl } from 'react-bootstrap'
-
+import { InputGroup, Button, PageHeader, FormGroup, FormControl,ControlLabel,Form } from 'react-bootstrap'
+import '../style.css'
 
 class WelcomePage extends Component { 
   constructor(props){
@@ -29,19 +29,28 @@ class WelcomePage extends Component {
   render(){ 
     return (
       <div> 
-       <PageHeader> Welcome! What would you like to be called? </PageHeader>   
-          <form onSubmit={this.handleOnSubmit}> 
-            <FormGroup> 
-              <InputGroup value={this.state.input}>
-               <FormControl onChange={this.handleOnChange} />
-               <Button bsStyle="primary" type='submit'> Submit </Button>
-              </InputGroup>
+         <div id="centerBox" className="bgimg">
+          <form > 
+            <Form inline onSubmit={this.handleOnSubmit}>
+            <FormGroup controlId="formInlineName">
+              <ControlLabel>Nickname</ControlLabel>
+              {' '}
+              <FormControl value={this.state.input} onChange={this.handleOnChange} type="text" placeholder="Jane Doe" />
             </FormGroup>
+            {' '}
+          
+            <Button type="submit">
+              Join
+            </Button>
+          </Form>
           </form>
+         </div> 
         </div> 
     )  
   }
 }
+
+
 
 function mapStateToProps(state, ownProps){
   return { user: state.user }

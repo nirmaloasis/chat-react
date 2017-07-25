@@ -2,7 +2,7 @@ import React from 'react'
 import ChatContainer from './containers/ChatContainer'
 import WelcomePage from './common/WelcomePage'
 import { connect } from 'react-redux'
-
+import Navbar from './Navbar'
 class App extends React.Component {
   constructor(props){
     super(props)
@@ -17,6 +17,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <Navbar/>
         {this.currentUser() ? <ChatContainer /> : <WelcomePage />}
       </div> 
     )
